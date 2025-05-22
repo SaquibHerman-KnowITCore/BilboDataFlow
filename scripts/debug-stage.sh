@@ -1,3 +1,5 @@
+set -e
+
 # set the subscription
 export ARM_SUBSCRIPTION_ID="e1b4bba1-73df-4932-96ca-85ee85fec54a"
 
@@ -10,6 +12,9 @@ export BACKEND_RESOURCE_GROUP="rg-bilbodataflow-stage"
 export BACKEND_STORAGE_ACCOUNT="stbilbodataflowstage"
 export BACKEND_STORAGE_CONTAINER="tfstate"
 export BACKEND_KEY=$TF_VAR_application_name-$TF_VAR_environment_name
+
+# ⬇ change directory to stage environment
+cd "$(dirname "$0")/../environments/stage/bronze"
 
 # run terraform
 terraform init \
