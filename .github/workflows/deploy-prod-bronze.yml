@@ -1,0 +1,54 @@
+name: Terraform Deploy (Prod → Bronze)
+
+on:
+  push:
+    branches:
+      - main  # Adjust per environment
+
+jobs:
+  terraform:
+    name: Terraform Prod Bronze Deployment
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: bronze
+
+    env:
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+      TF_VAR_application_name: "bilbodataflow"
+      TF_VAR_environment_name: "prod"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7
+
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=rg-bilbodataflow-prod" \
+            -backend-config="storage_account_name=stbilbodataflowprod" \
+            -backend-config="container_name=tfstate" \
+            -backend-config="key=bilbodataflow-prod" \
+            -reconfigure
+
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -var-file="prod.tfvars"
+
+      - name: Terraform Apply (Auto-Approve)
+        if: github.ref == 'refs/heads/prod'
+        run: terraform apply -var-file="prod.tfvars" -auto-approve
