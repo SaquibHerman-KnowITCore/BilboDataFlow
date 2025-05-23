@@ -1,0 +1,5 @@
+# Always prefer current branch's version during merge for environment tfvars files
+*.tfvars merge=ours
+
+# Optional: avoid merge conflicts in workflow YAML files
+.github/workflows/*.yml merge=ours
