@@ -1,11 +1,9 @@
-name: Terraform Deploy (Stage → Bronze)
+name: Terraform Deploy (Satge → Bronze)
 
 on:
   push:
     branches:
-      - stage
-    paths:
-      - 'bronze/**'
+      - stage  # Adjust per environment
 
 jobs:
   terraform:
@@ -34,12 +32,13 @@ jobs:
           terraform_version: 1.5.7
 
       - name: Terraform Init
-        run: terraform init \
-          -backend-config="resource_group_name=rg-bilbodataflow-stage" \
-          -backend-config="storage_account_name=stbilbodataflowstage" \
-          -backend-config="container_name=tfstate" \
-          -backend-config="key=bilbodataflow-stage" \
-          -reconfigure
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=rg-bilbodataflow-stage" \
+            -backend-config="storage_account_name=stbilbodataflowstage" \
+            -backend-config="container_name=tfstate" \
+            -backend-config="key=bilbodataflow-stage" \
+            -reconfigure
 
       - name: Terraform Format Check
         run: terraform fmt -check
