@@ -1,0 +1,9 @@
+# Always prefer current branch's version during merge for tfvars files
+*.tfvars merge=ours
+
+# Prevent merge conflicts in CI/CD workflow files
+.github/workflows/*.yml merge=ours
+
+# Prevent merge conflicts in these Git config files
+.gitignore merge=ours
+.gitattributes merge=ours
