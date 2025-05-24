@@ -1,6 +1,12 @@
 # =====================================
-# Azure Blob Upload Script - Client Version
+# Azure Blob Upload Script - Client Version (Environment-Ready)
 # =====================================
+
+# Prompt for environment (dev, stage, prod)
+$ENVIRONMENT = Read-Host -Prompt "🌐 Enter environment (e.g., dev, stage, prod)"
+
+# Build storage account name from environment
+$STORAGE_ACCOUNT_NAME = "dlbilbodataflow$ENVIRONMENT"
 
 # Prompt for local folder path (containing CSV files)
 $LOCAL_FOLDER_PATH = Read-Host -Prompt "📁 Enter the full path to your local folder with CSV files"
@@ -11,11 +17,11 @@ if (-not (Test-Path -Path $LOCAL_FOLDER_PATH)) {
     exit 1
 }
 
-# Azure Storage Account container name
+# Azure container name
 $CONTAINER_NAME = "bronze"
 
-# Base URL to your container (without SAS token)
-$BASE_SAS_URL = "https://dlbilbodataflowdev.blob.core.windows.net/$CONTAINER_NAME"
+# Base URL (built dynamically from storage account + container)
+$BASE_SAS_URL = "https://$STORAGE_ACCOUNT_NAME.blob.core.windows.net/$CONTAINER_NAME"
 
 # Prompt for SAS token (everything after '?')
 if (-not $env:SAS_TOKEN) {
