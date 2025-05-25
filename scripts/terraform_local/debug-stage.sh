@@ -14,7 +14,7 @@ export BACKEND_STORAGE_CONTAINER="tfstate"
 export BACKEND_KEY=$TF_VAR_application_name-$TF_VAR_environment_name
 
 # ⬇ change directory to stage environment
-cd "$(dirname "$0")/../bronze"
+cd "$(dirname "$0")/../../bronze"
 
 # run terraform
 terraform init \
