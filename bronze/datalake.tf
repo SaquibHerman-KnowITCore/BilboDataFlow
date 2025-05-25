@@ -14,8 +14,22 @@ resource "azurerm_storage_account" "datalake" {
   }
 }
 
-resource "azurerm_storage_container" "bronze" {
+resource "azurerm_storage_container" "bronze_datalake" {
   name                  = "bronze"
   storage_account_id    = azurerm_storage_account.datalake.id
   container_access_type = "private"
+}
+
+resource "azurerm_storage_data_lake_gen2_path" "winassist_datalake_folder" {
+  path               = "winassist"
+  filesystem_name    = azurerm_storage_container.bronze_datalake.name
+  storage_account_id = azurerm_storage_account.datalake.id
+  resource           = "directory"
+}
+
+resource "azurerm_storage_data_lake_gen2_path" "kobra_datalake_folder" {
+  path               = "kobra"
+  filesystem_name    = azurerm_storage_container.bronze_datalake.name
+  storage_account_id = azurerm_storage_account.datalake.id
+  resource           = "directory"
 }
