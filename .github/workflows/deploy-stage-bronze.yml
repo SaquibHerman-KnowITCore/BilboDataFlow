@@ -35,7 +35,7 @@ jobs:
         run: |
           terraform init \
             -backend-config="resource_group_name=rg-bilbodataflow-stage" \
-            -backend-config="storage_account_name=stbilbodataflowstage" \
+            -backend-config="storage_account_name=sttbbilbodataflowstage" \
             -backend-config="container_name=tfstate" \
             -backend-config="key=bilbodataflow-stage" \
             -reconfigure

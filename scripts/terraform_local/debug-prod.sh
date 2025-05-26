@@ -9,7 +9,7 @@ export TF_VAR_environment_name="prod"
 
 # set the backend
 export BACKEND_RESOURCE_GROUP="rg-bilbodataflow-prod"
-export BACKEND_STORAGE_ACCOUNT="stbilbodataflowprod"
+export BACKEND_STORAGE_ACCOUNT="sttbbilbodataflowprod"
 export BACKEND_STORAGE_CONTAINER="tfstate"
 export BACKEND_KEY=$TF_VAR_application_name-$TF_VAR_environment_name
 
