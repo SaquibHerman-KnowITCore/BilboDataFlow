@@ -9,7 +9,7 @@ export TF_VAR_environment_name="stage"
 
 # set the backend
 export BACKEND_RESOURCE_GROUP="rg-bilbodataflow-stage"
-export BACKEND_STORAGE_ACCOUNT="stbilbodataflowstage"
+export BACKEND_STORAGE_ACCOUNT="sttbbilbodataflowstage"
 export BACKEND_STORAGE_CONTAINER="tfstate"
 export BACKEND_KEY=$TF_VAR_application_name-$TF_VAR_environment_name
 
