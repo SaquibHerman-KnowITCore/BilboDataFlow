@@ -24,3 +24,19 @@ resource "azurerm_key_vault" "main" {
 
 }
 
+resource "azurerm_data_factory" "main" {
+  name                = "adf-${var.application_name}-${var.environment_name}"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  tags = {
+    environment = var.environment_name
+    application = var.application_name
+    component   = "data_factory"
+  }
+}
+
