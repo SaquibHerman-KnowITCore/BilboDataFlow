@@ -24,12 +24,3 @@ resource "azurerm_storage_data_lake_gen2_path" "kobra_ingestion_folder" {
   storage_account_id = azurerm_storage_account.storage.id
   resource           = "directory"
 }
-
-resource "azurerm_storage_data_lake_gen2_path" "winassist_ingestion_folder" {
-  path               = "winassist"
-  filesystem_name    = azurerm_storage_container.bronze_ingestion.name
-  storage_account_id = azurerm_storage_account.storage.id
-  resource           = "directory"
-}
-
-
