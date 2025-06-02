@@ -8,28 +8,15 @@ resource "azurerm_data_factory_linked_custom_service" "ls_rest_unit4" {
   /*
    * The API key (X-API-Key) should be retrieved securely from Azure Key Vault.
    * Currently, this needs to be configured manually in the Azure Portal.
-   * The section below shows how to automate it (when supported) via `authHeaders`.
    */
   type_properties_json = <<JSON
 {
   "url": "https://integrationerpexternal-api-v2-prod.azurewebsites.net/",
   "authenticationType": "Anonymous",
   "enableServerCertificateValidation": true
-  /*
-  "authHeaders" = "{
-    "X-API-Key" = {
-      type       = "AzureKeyVaultSecret",
-      secretName = "unit4-api-key",
-      secretVersion = "latest",
-      store = {
-        referenceName = azurerm_data_factory_linked_service_key_vault.main.name,
-        type          = "LinkedServiceReference"
-      }
-    }
-  }"
-  */
 }
 JSON
+
 }
 
 # Linked Service to connect ADF with ADLS Gen2 using storage account key
