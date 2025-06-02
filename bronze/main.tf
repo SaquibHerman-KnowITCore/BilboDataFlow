@@ -40,3 +40,9 @@ resource "azurerm_data_factory" "main" {
   }
 }
 
+resource "azurerm_data_factory_linked_service_key_vault" "main" {
+  name            = "ls-kv-${var.application_name}-${var.environment_name}"
+  data_factory_id = azurerm_data_factory.main.id
+  key_vault_id    = azurerm_key_vault.main.id
+  description     = "Key Vault linked service for Biibolaget Data Platform"
+}
